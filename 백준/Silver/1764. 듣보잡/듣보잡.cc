@@ -18,38 +18,33 @@ int main() {
 	}
 	sort(v.begin(), v.end());
 
-	vector<string>v2(m);
-	for (int i = 0; i < m; i++) {
-		cin >> v2[i];
-	}
-	sort(v2.begin(), v2.end());
-
-	
 	vector<string>v3;
-	int st = 0;
-	int end = n - 1;
-	int i=0;
-	while(st<=end&&i<m) {
-		
-		int mid= (st + end) / 2;
+	for (int i = 0; i < m; i++) {
+		string a;
+		cin >> a;
+		int st = 0;
+		int end = n - 1;
 		while (st <= end) {
-			mid = (st + end) / 2;
-			if (v[mid] == v2[i]) {
-				v3.push_back(v2[i]);
-				mid++;
+
+			int mid = (st + end) / 2;
+
+			if (v[mid] == a) {
+				v3.push_back(a);
+				
 				break;
 			}
-			if (v[mid] < v2[i]) {
+			if (v[mid] < a) {
 				st = mid + 1;
 			}
 			else end = mid - 1;
+			
+	
 		}
-		st = mid;
-		end = n - 1;
-		i++;
 	}
+
 	
 	cout << v3.size();
+	sort(v3.begin(), v3.end());
 	for (int i = 0; i < v3.size(); i++) {
 		cout << '\n' << v3[i];
 	}

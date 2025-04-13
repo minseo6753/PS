@@ -18,7 +18,7 @@ int main() {
 	int height = sum / (n * m);
 	int htemp = height;
 	int time = 2 * n * m * 256;
-	while (true) {
+	while (htemp<=256) {
 		int timetemp = 0;
 		int btemp = b;
 		for (int i = 0; i < n * m; i++) {

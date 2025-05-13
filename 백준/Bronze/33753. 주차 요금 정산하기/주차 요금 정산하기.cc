@@ -8,5 +8,5 @@ int main() {
 	int t;
 	cin >> t;
 	if (t <= 30)cout << a;
-	else cout << a + (ceil(double(t-30) / b)) * c;
+	else cout << a + int(ceil(double(t-30) / b)) * c;
 }

@@ -27,7 +27,5 @@ int main() {
 
 	cin >> n >> m;
 	
-	for (int i = 1; i <= n-m+1; i++) {
-		f(i,1);
-	}
+	f(0, 0);
 }

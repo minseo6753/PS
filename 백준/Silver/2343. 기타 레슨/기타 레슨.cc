@@ -1,42 +1,52 @@
 #include<iostream>
+#include<vector>
+
 using namespace std;
 
-int arr[100000];
-
 int main() {
-
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
 
 	int n, m;
 	cin >> n >> m;
 
-	int sum = 0;
-	int max = 0;
+	vector<int>v(n);
+	int l = 0;
+	int mx = 0;
 	for (int i = 0; i < n; i++) {
-		cin >> arr[i];
-		sum += arr[i];
-		if (arr[i] > max)max = arr[i];
+
+		cin >> v[i];
+		l += v[i];
+		mx = max(mx, v[i]);
+
 	}
 
-	int st = max;
-	int end = sum;
-	while (st < end) {
-		int mid = (st + end) / 2;
-		
-		int cnt = 1;
-		int tmp = 0;
+	int low = mx;
+	int high = l;
+	while (low < high) {
+
+		int mid = (low + high) / 2;
+
+		int s = 0;
+		int k = 0;
 		for (int i = 0; i < n; i++) {
-			if (tmp + arr[i] > mid) {
-				cnt++;
-				tmp = arr[i];
-			}
-			else tmp += arr[i];
-		}
-		
-		if (cnt <= m)end = mid;
-		else st = mid + 1;
-	}
 
-	cout << end;
+			s += v[i];
+			if (s > mid) {
+				k++;
+				s = v[i];
+			}
+
+		}
+		k++;
+
+		if (k <= m) {
+			high = mid;
+		}
+		else {
+			low = mid+1;
+		}
+	}
+	cout << high;
 }

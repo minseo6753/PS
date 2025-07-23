@@ -12,11 +12,7 @@ struct Value {
 	int sum;
 };
 
-
-
-void cal(int num, vector<vector<Child>>& tree,vector<Value>&v,vector<bool>&visit) {
-
-	visit[num] = true;
+void cal(int num, vector<vector<Child>>& tree,vector<Value>&v) {
 
 	int maxi1 = 0;
 	int maxi2 = 0;
@@ -25,17 +21,17 @@ void cal(int num, vector<vector<Child>>& tree,vector<Value>&v,vector<bool>&visit
 		int child = tree[num][i].num;
 		int weight = tree[num][i].weight;
 
-		if (!visit[child]) {
-			cal(child, tree, v,visit);
+		
+		cal(child, tree, v);
 			
-			if (maxi2 < v[child].maxi + weight) {
-				if (maxi1 < v[child].maxi + weight) {
-					maxi2 = maxi1;
-					maxi1 = v[child].maxi + weight;
-				}
-				else maxi2 = v[child].maxi + weight;
+		if (maxi2 < v[child].maxi + weight) {
+			if (maxi1 < v[child].maxi + weight) {
+				maxi2 = maxi1;
+				maxi1 = v[child].maxi + weight;
 			}
+			else maxi2 = v[child].maxi + weight;
 		}
+		
 
 	}
 	v[num].maxi = maxi1;
@@ -54,12 +50,12 @@ int main() {
 		int p, c, w;
 		cin >> p >> c >> w;
 		tree[p].push_back({ c,w });
-		tree[c].push_back({ p,w });
+		
 	}
 
 	vector<Value>v(n+1);
-	vector<bool>visit(n + 1, false);
-	cal(1, tree, v,visit);
+
+	cal(1, tree, v);
 
 	int result = 0;
 	for (int i = 1; i <= n; i++) {

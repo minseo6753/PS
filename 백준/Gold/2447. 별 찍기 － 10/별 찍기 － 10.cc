@@ -18,6 +18,10 @@ void star(vector<vector<char>>& v, int row, int col, int n) {
 }
 
 int main() {
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
+    
 	int n;
 	cin >> n;
 	vector<vector<char>>v(n, vector<char>(n,' '));

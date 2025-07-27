@@ -1,5 +1,5 @@
 #include<iostream>
-
+#include<algorithm>
 using namespace std;
 
 int arr[10000];
@@ -8,10 +8,7 @@ void post(int start, int end) {
 
 	if (start > end)return;
 
-	int i;
-	for (i = start + 1; i <= end; i++) {
-		if (arr[i] > arr[start])break;
-	}
+	int i = upper_bound(arr + start + 1, arr + end + 1 , arr[start]) - arr;
 
 	post(start + 1 , i - 1);
 	post(i, end);

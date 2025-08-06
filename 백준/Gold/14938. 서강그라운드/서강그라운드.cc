@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-#define INF 1500
+#define INF 1499
 
 int main() {
 

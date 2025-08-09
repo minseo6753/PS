@@ -4,6 +4,32 @@
 using namespace std;
 #define INF 1000001
 
+vector<int> dijk(vector<vector<pair<int, int>>>& v, int src) {
+
+	vector<int>dist(v.size(), INF);
+	priority_queue<pair<int, int>>pq;
+	dist[src] = 0;
+	pq.push({ 0,src });
+	while (!pq.empty()) {
+		int time = -pq.top().first;
+		int town = pq.top().second;
+		pq.pop();
+
+		if (time > dist[town])continue;
+
+		for (int i = 0; i < v[town].size(); i++) {
+			int next_town = v[town][i].first;
+			int duration = v[town][i].second;
+			if (dist[town] + duration < dist[next_town]) {
+				dist[next_town] = dist[town] + duration;
+				pq.push({ -dist[next_town],next_town });
+			}
+		}
+	}
+
+	return dist;
+}
+
 int main() {
 
 	ios_base::sync_with_stdio(false);
@@ -21,46 +47,8 @@ int main() {
 		reverse[e].push_back({ s,t });
 	}
 
-	vector<int>dist(n + 1, INF);
-	priority_queue<pair<int, int>>pq;
-	dist[x] = 0;
-	pq.push({ 0,x });
-	while (!pq.empty()) {
-		int time = -pq.top().first;
-		int town = pq.top().second;
-		pq.pop();
-		
-		if (time > dist[town])continue;
-
-		for (int i = 0; i < road[town].size(); i++) {
-			int next_town = road[town][i].first;
-			int duration = road[town][i].second;
-			if (dist[town] + duration < dist[next_town]) {
-				dist[next_town] = dist[town] + duration;
-				pq.push({ -dist[next_town],next_town});
-			}
-		}
-	}
-
-	vector<int>revdist(n + 1, INF);
-	revdist[x] = 0;
-	pq.push({ 0,x });
-	while (!pq.empty()) {
-		int time = -pq.top().first;
-		int town = pq.top().second;
-		pq.pop();
-		
-		if (time > revdist[town])continue;
-
-		for (int i = 0; i < reverse[town].size(); i++) {
-			int next_town = reverse[town][i].first;
-			int duration = reverse[town][i].second;
-			if (revdist[town] + duration < revdist[next_town]) {
-				revdist[next_town] = revdist[town] + duration;
-				pq.push({ -revdist[next_town],next_town});
-			}
-		}
-	}
+	vector<int>dist = dijk(road, x);
+	vector<int>revdist = dijk(reverse, x);
 
 	int result = 0;
 	for (int i = 1; i <= n; i++) {

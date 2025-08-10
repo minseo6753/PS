@@ -1,7 +1,24 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-#define INF 25000001
+#define INF 1e9
+
+bool bellman(vector < vector<pair<int, int>>>& v) {
+	vector<int>dist(v.size(), INF);
+	for (int i = 0; i < v.size()-1; i++) {
+		bool update = false;
+		for (int j = 1; j <= v.size()-1; j++) {
+			for (int k = 0; k < v[j].size(); k++) {
+				if (dist[j] + v[j][k].second < dist[v[j][k].first]) {
+					dist[v[j][k].first] = dist[j] + v[j][k].second;
+					update = true;
+				}
+			}
+		}
+		if (!update)return false;
+	}
+	return true;
+}
 
 int main() {
 
@@ -15,42 +32,22 @@ int main() {
 		int n, m, w;
 		cin >> n >> m >> w;
 
-		vector<vector<int>>map(n + 1, vector<int>(n + 1, INF));
-		for (int i = 1; i <= n; i++)map[i][i] = 0;
+		vector<vector<pair<int,int>>>map(n + 1, vector<pair<int,int>>());
 
 		for (int i = 0; i < m; i++) {
 			int s, e, t;
 			cin >> s >> e >> t;
-			if (map[s][e] < t)continue;
-			map[s][e] = t;
-			map[e][s] = t;
+			map[s].push_back({ e,t });
+			map[e].push_back({ s,t });
 		}
 
 		for (int i = 0; i < w; i++) {
 			int s, e, t;
 			cin >> s >> e >> t;
-			map[s][e] = -t;
+			map[s].push_back({ e,-t });
 		}
 
-		for (int k = 1; k <= n; k++) {
-			for (int i = 1; i <= n; i++) {
-				for (int j = 1; j <= n; j++) {
-					map[i][j] = min(map[i][j], map[i][k] + map[k][j]);
-				}
-			}
-		}
-
-		bool b = false;
-		for (int i = 1; i <= n; i++) {
-			for (int k = 1; k <= n; k++) {
-				if (map[i][k] + map[k][i] < 0) {
-					b = true;
-					break;
-				}
-			}
-			if (b)break;
-		}
-		if (b)cout << "YES" << '\n';
+		if (bellman(map))cout << "YES" << '\n';
 		else cout << "NO" << '\n';
 	}
 }

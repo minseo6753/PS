@@ -1,7 +1,7 @@
 #include<iostream>
 #include<vector>
 using namespace std;
-#define INF 1e9
+#define INF 0
 
 bool bellman(vector < vector<pair<int, int>>>& v) {
 	vector<int>dist(v.size(), INF);

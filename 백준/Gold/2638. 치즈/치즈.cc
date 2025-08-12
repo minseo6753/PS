@@ -1,7 +1,10 @@
 #include<iostream>
-#include<vector>
 #include<queue>
+#include<memory.h>
 using namespace std;
+
+bool map[100][100];
+int visit[100][100];
 
 int main() {
 
@@ -11,7 +14,6 @@ int main() {
 	int n, m;
 	cin >> n >> m;
 
-	vector<vector<int>>map(n, vector<int>(m));
 	int cheese = 0;
 	for (int i = 0; i < n; i++) {
 		for (int j = 0; j < m; j++) {
@@ -26,8 +28,8 @@ int main() {
 	int time = 0;
 	while (cheese) {
 		time++;
-		vector<vector<int>>visit(n, vector<int>(m,0));
 		q.push({ 0,0 });
+		memset(visit, 0, sizeof(visit));
 		visit[0][0] = -1;
 		while (!q.empty()) {
 			int row = q.front().first;

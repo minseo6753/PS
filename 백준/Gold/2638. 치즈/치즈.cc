@@ -3,8 +3,6 @@
 #include<memory.h>
 using namespace std;
 
-bool map[100][100];
-int visit[100][100];
 
 int main() {
 
@@ -13,6 +11,8 @@ int main() {
 
 	int n, m;
 	cin >> n >> m;
+
+	bool map[100][100];
 
 	int cheese = 0;
 	for (int i = 0; i < n; i++) {
@@ -23,6 +23,8 @@ int main() {
 	}
 
 	queue<pair<int, int>>q;
+
+	int visit[100][100];
 	
 	int mov[4] = { 1,-1,0,0 };
 	int time = 0;

@@ -36,6 +36,7 @@ int main() {
 		pq.pop();
 
 		if (distance > dist[town])continue;
+		if (town == end)break;
 
 		for (int i = 0; i < bus[town].size(); i++) {
 			int next = bus[town][i].first;

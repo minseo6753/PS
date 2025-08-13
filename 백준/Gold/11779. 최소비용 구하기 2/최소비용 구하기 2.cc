@@ -32,7 +32,7 @@ int main() {
 	
 	while (!pq.empty()) {
 		int town = pq.top().second;
-		int distance = pq.top().first;
+		int distance = -pq.top().first;
 		pq.pop();
 
 		if (distance > dist[town])continue;
@@ -43,7 +43,7 @@ int main() {
 
 			if (dist[town] + cost < dist[next]) {
 				dist[next] = dist[town] + cost;
-				pq.push({ dist[next],next });
+				pq.push({ -dist[next],next });
 				pre[next] = town;
 			}
 		}

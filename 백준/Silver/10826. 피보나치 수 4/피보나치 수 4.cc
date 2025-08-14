@@ -25,6 +25,11 @@ vector<int> operator+(vector<int>& v1,vector<int>&v2) {
 }
 
 int main() {
+
+	ios_base::sync_with_stdio(false);
+	cin.tie(NULL);
+	cout.tie(NULL);
+
 	int n;
 	cin >> n;
 

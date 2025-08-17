@@ -5,8 +5,7 @@ using namespace std;
 int n;
 int map[20][20];
 
-int rm[4] = { -1,0,0,1 };
-int cm[4] = { 0,-1,1,0 };
+int mov[4]={-1,1,0,0};
 
 int bfs(int &row,int &col, int &size, int &cnt) {
 	priority_queue<pair<int,pair<int, int>>>q;
@@ -35,8 +34,8 @@ int bfs(int &row,int &col, int &size, int &cnt) {
 			}
 
 			for (int i = 0; i < 4; i++) {
-				int tr = r + rm[i];
-				int tc = c + cm[i];
+				int tr = r + mov[i];
+				int tc = c + mov[3-i];
 
 				if (tr < 0 || tr >= n || tc < 0 || tc >= n)continue;
 				if (visit[tr][tc])continue;

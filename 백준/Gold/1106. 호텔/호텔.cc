@@ -1,6 +1,7 @@
-#include<iostream>	
+#include<iostream>
 #include<vector>
 using namespace std;
+#define MAX_VAL 100001
 
 int main() {
 
@@ -10,15 +11,20 @@ int main() {
 	int c, n;
 	cin >> c >> n;
 
-	vector<int>dp(c*100+1,0);
-
+	vector<int>dp(c + 100, MAX_VAL);
+	dp[0] = 0;
 	for (int i = 0; i < n; i++) {
 		int cost, cust;
 		cin >> cost >> cust;
-		for (int j = cost; j <= c*100; j++) {
-			dp[j] = max(dp[j], dp[j - cost] + cust);
+		
+		for (int j = cust; j < c + 100; j++) {
+			if (dp[j - cust] != MAX_VAL)dp[j] = min(dp[j], dp[j - cust]+cost);
 		}
 	}
-	
-	cout << lower_bound(dp.begin(), dp.end(), c) - dp.begin();
+
+	int result = MAX_VAL;
+	for (int i = c; i < c + 100; i++) {
+		result = min(result, dp[i]);
+	}
+	cout << result;
 }

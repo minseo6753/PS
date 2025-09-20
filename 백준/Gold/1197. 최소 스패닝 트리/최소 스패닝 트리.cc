@@ -35,7 +35,8 @@ int main() {
 	for (int i = 0; i < tree[1].size(); i++)pq.push(tree[1][i]);
 	included[1] = true;
 
-	while (!pq.empty()) {
+	int cnt = 1;
+	while (cnt<v) {
 		int weight = pq.top().weight;
 		int v = pq.top().v;
 		pq.pop();
@@ -44,6 +45,7 @@ int main() {
 
 		sum += weight;
 		included[v] = true;
+		cnt++;
 
 		for (int i = 0; i < tree[v].size(); i++) {
 			pq.push(tree[v][i]);
